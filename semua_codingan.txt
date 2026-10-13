@@ -1,0 +1,1828 @@
+
+============================================================
+FILE: AGENTS.md
+============================================================
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+
+============================================================
+FILE: app/globals.css
+============================================================
+
+﻿@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+}
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+
+  --animate-marquee: marquee 25s linear infinite;
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+
+
+
+============================================================
+FILE: app/layout.tsx
+============================================================
+
+﻿import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Agency",
+  description: "Creative agency landing page",
+};
+
+export default function RootLayout({ children }: LayoutProps<"/">) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
+    >
+      <body className="min-h-full flex flex-col">{children}</body>
+    </html>
+  );
+}
+
+
+
+============================================================
+FILE: app/page.tsx
+============================================================
+
+﻿import HeroOne from "@/components/ui/hero-01";
+import Ppdb from "@/components/sections/ppdb";
+import Sambutan from "@/components/sections/sambutan";
+import Fasilitas from "@/components/sections/fasilitas";
+
+export default function Page() {
+  return (
+    <>
+      <HeroOne />
+      <Sambutan />
+      <Fasilitas />
+      <Ppdb />
+    </>
+  );
+}
+
+
+============================================================
+FILE: components/section/fasilitas.tsx
+============================================================
+
+import {
+  BookOpen,
+  Landmark,
+  Monitor,
+  Sprout,
+  Trophy,
+  Wifi,
+} from "lucide-react";
+
+// Sesuaikan daftar ini dengan fasilitas yang benar-benar ada.
+// Isi `image` dengan path foto, misalnya "/fasilitas/lab-tkj.jpg"
+const fasilitas = [
+  {
+    icon: Monitor,
+    title: "Laboratorium Komputer",
+    desc: "Ruang praktik jurusan TKJ dengan perangkat komputer untuk pembelajaran berbasis proyek.",
+    image: "",
+  },
+  {
+    icon: Wifi,
+    title: "Jaringan & Internet",
+    desc: "Akses internet untuk menunjang pembelajaran dan praktik jaringan.",
+    image: "",
+  },
+  {
+    icon: Sprout,
+    title: "Lahan Praktik Pertanian",
+    desc: "Area praktik langsung bagi siswa untuk belajar budidaya dan agribisnis.",
+    image: "",
+  },
+  {
+    icon: BookOpen,
+    title: "Perpustakaan",
+    desc: "Ruang baca yang nyaman dengan koleksi buku pelajaran dan referensi.",
+    image: "",
+  },
+  {
+    icon: Landmark,
+    title: "Sarana Ibadah",
+    desc: "Tempat ibadah untuk mendukung pembinaan karakter dan akhlak siswa.",
+    image: "",
+  },
+  {
+    icon: Trophy,
+    title: "Sarana Olahraga",
+    desc: "Lapangan dan fasilitas olahraga untuk kegiatan jasmani dan ekstrakurikuler.",
+    image: "",
+  },
+];
+
+export default function Fasilitas() {
+  return (
+    <section
+      id="fasilitas"
+      className="relative scroll-mt-16 overflow-hidden bg-emerald-50/60 py-20 lg:py-28 dark:bg-emerald-950/10"
+    >
+      <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 translate-x-1/3 -translate-y-1/3 rounded-full bg-emerald-200/50 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-block rounded-full border border-emerald-200 bg-white px-4 py-1.5 text-xs font-semibold text-emerald-700">
+            Fasilitas Sekolah
+          </span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Lingkungan Belajar yang <span className="text-emerald-600">Mendukung</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Sarana dan prasarana yang kami siapkan agar setiap siswa dapat
+            belajar, berpraktik, dan berkembang dengan optimal.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {fasilitas.map((f) => (
+            <article
+              key={f.title}
+              className="group overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-100 dark:bg-card"
+            >
+              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-emerald-200 via-emerald-300 to-green-400">
+                {f.image ? (
+                  <img
+                    src={f.image}
+                    alt={f.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <f.icon className="absolute -bottom-6 -right-6 h-36 w-36 text-white/30 transition duration-500 group-hover:scale-110 group-hover:rotate-6" />
+                )}
+                <div className="absolute left-4 top-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-md">
+                  <f.icon className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold">{f.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+============================================================
+FILE: components/section/ppdb.tsx
+============================================================
+
+import {
+  ArrowRight,
+  CalendarCheck,
+  ClipboardCheck,
+  FileText,
+  GraduationCap,
+  Monitor,
+  Sprout,
+  Trophy,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+// Ubah data di bawah ini sesuai informasi resmi sekolah
+const TAHUN_AJARAN = "2027/2028";
+
+const jalur = [
+  {
+    icon: FileText,
+    title: "Pendaftaran Online",
+    date: "[isi tanggal]",
+    desc: "Isi formulir dan unggah berkas persyaratan melalui website resmi.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Verifikasi Berkas",
+    date: "[isi tanggal]",
+    desc: "Panitia memeriksa kelengkapan dan keabsahan dokumen pendaftar.",
+  },
+  {
+    icon: Trophy,
+    title: "Seleksi",
+    date: "[isi tanggal]",
+    desc: "Seleksi sesuai jalur yang dipilih dan jurusan tujuan.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Pengumuman & Daftar Ulang",
+    date: "[isi tanggal]",
+    desc: "Cek hasil seleksi, lalu lakukan daftar ulang bagi peserta yang diterima.",
+  },
+];
+
+const persyaratan = [
+  "Lulusan SMP/MTs atau sederajat",
+  "Fotokopi ijazah / surat keterangan lulus",
+  "Fotokopi kartu keluarga dan akta kelahiran",
+  "Pas foto terbaru",
+  "Sehat jasmani dan rohani",
+];
+
+const jurusan = [
+  {
+    icon: Sprout,
+    kode: "APHP",
+    nama: "Agribisnis Pengolahan Hasil Pertanian",
+    desc: "Belajar mengolah hasil pertanian menjadi produk bernilai jual.",
+  },
+  {
+    icon: Monitor,
+    kode: "TKJ",
+    nama: "Teknik Komputer dan Jaringan",
+    desc: "Belajar merakit komputer, mengelola jaringan, dan teknologi server.",
+  },
+];
+
+export default function Ppdb() {
+  return (
+    <section
+      id="ppdb"
+      className="relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-white via-emerald-50/60 to-white py-20 lg:py-28 dark:from-background dark:via-emerald-950/20 dark:to-background"
+    >
+      {/* dekorasi latar */}
+      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-lime-200/40 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+            <GraduationCap className="h-4 w-4" />
+            PPDB {TAHUN_AJARAN}
+          </span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Penerimaan Peserta Didik Baru
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Bergabunglah bersama SMKN Pertanian 1 Sukaraja dan siapkan masa
+            depanmu di bidang pertanian dan teknologi.
+          </p>
+        </div>
+
+        {/* Jurusan */}
+        <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+          {jurusan.map((j) => (
+            <div
+              key={j.kode}
+              className="group flex gap-4 rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-100 dark:bg-card"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-white transition group-hover:rotate-6">
+                <j.icon className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-xs font-bold tracking-widest text-emerald-600">
+                  {j.kode}
+                </p>
+                <h3 className="font-semibold leading-snug">{j.nama}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{j.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Alur + persyaratan */}
+        <div className="mt-14 grid gap-8 lg:grid-cols-5">
+          <div className="lg:col-span-3">
+            <h3 className="mb-6 text-xl font-semibold">Alur Pendaftaran</h3>
+            <ol className="relative space-y-6 border-l-2 border-dashed border-emerald-200 pl-8">
+              {jalur.map((step, i) => (
+                <li key={step.title} className="relative">
+                  <span className="absolute -left-[3.2rem] flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white ring-4 ring-white dark:ring-background">
+                    {i + 1}
+                  </span>
+                  <div className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-card">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h4 className="font-semibold">{step.title}</h4>
+                      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+                        {step.date}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {step.desc}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="lg:col-span-2">
+            <div className="sticky top-24 rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600 p-6 text-white shadow-xl shadow-emerald-200 sm:p-8">
+              <h3 className="text-xl font-semibold">Persyaratan Umum</h3>
+              <ul className="mt-5 space-y-3">
+                {persyaratan.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/25 text-xs">
+                      ✓
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                asChild
+                size="lg"
+                className="mt-8 w-full gap-2 bg-white text-emerald-700 hover:bg-emerald-50"
+              >
+                <a href="#">
+                  Daftar Sekarang <ArrowRight className="h-4 w-4" />
+                </a>
+              </Button>
+              <p className="mt-3 text-center text-xs text-white/80">
+                Ganti tautan tombol dengan alamat pendaftaran resmi.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+============================================================
+FILE: components/section/sambutan.tsx
+============================================================
+
+import { Quote } from "lucide-react";
+
+const NAMA_KEPSEK = "[Nama Kepala Sekolah]";
+
+export default function Sambutan() {
+  return (
+    <section id="sambutan" className="scroll-mt-16 bg-white py-20 lg:py-28 dark:bg-background">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-5">
+        {/* Foto */}
+        <div className="relative mx-auto w-full max-w-sm lg:col-span-2">
+          <div className="absolute -bottom-4 -right-4 h-full w-full rounded-[2.5rem] bg-emerald-200/70" />
+          <div className="absolute -left-4 -top-4 h-24 w-24 rounded-full bg-lime-200" />
+
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border-4 border-white bg-gradient-to-br from-emerald-100 to-emerald-300 shadow-xl">
+            {/* Ganti dengan foto kepala sekolah:
+                <img src="/kepsek.jpg" alt={NAMA_KEPSEK} className="h-full w-full object-cover" /> */}
+            <div className="flex h-full items-center justify-center text-sm font-medium text-emerald-700/70">
+              Foto Kepala Sekolah
+            </div>
+          </div>
+
+          <div className="absolute -bottom-6 left-1/2 w-[85%] -translate-x-1/2 rounded-2xl border border-emerald-100 bg-white px-5 py-3 text-center shadow-lg dark:bg-card">
+            <p className="font-semibold">{NAMA_KEPSEK}</p>
+            <p className="text-xs text-emerald-600">
+              Kepala SMKN Pertanian 1 Sukaraja
+            </p>
+          </div>
+        </div>
+
+        {/* Teks sambutan */}
+        <div className="lg:col-span-3">
+          <span className="inline-block rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+            Sambutan Kepala Sekolah
+          </span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Tumbuh Bersama, <span className="text-emerald-600">Berkarya untuk Negeri</span>
+          </h2>
+
+          <div className="relative mt-8 rounded-3xl bg-emerald-50/70 p-6 sm:p-8">
+            <Quote className="absolute -top-4 left-6 h-9 w-9 rounded-full bg-emerald-500 p-2 text-white" />
+            <div className="space-y-4 text-muted-foreground">
+              <p>
+                Assalamu&apos;alaikum warahmatullahi wabarakatuh. Selamat datang
+                di website resmi SMKN Pertanian 1 Sukaraja. Kami bersyukur dapat
+                menyapa Anda melalui laman ini sebagai wadah informasi dan
+                perkenalan sekolah kami.
+              </p>
+              <p>
+                Melalui Kurikulum Merdeka, kami membekali peserta didik dengan
+                keterampilan di bidang pertanian dan teknologi, serta karakter
+                yang kuat melalui nilai-nilai Pancawaluya. Kami ingin lulusan
+                yang cageur, bageur, bener, pinter, dan singer: siap bekerja,
+                berwirausaha, maupun melanjutkan pendidikan.
+              </p>
+              <p>
+                Terima kasih kepada seluruh guru, tenaga kependidikan, orang
+                tua, dan mitra yang terus mendukung kemajuan sekolah. Mari kita
+                tumbuh bersama untuk mencetak generasi yang unggul dan
+                berakhlak.
+              </p>
+              <p className="font-medium text-foreground">
+                Wassalamu&apos;alaikum warahmatullahi wabarakatuh.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 flex items-center gap-3">
+            <div className="h-px w-12 bg-emerald-400" />
+            <div>
+              <p className="font-semibold">{NAMA_KEPSEK}</p>
+              <p className="text-sm text-muted-foreground">Kepala Sekolah</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+============================================================
+FILE: components/sections/fasilitas.tsx
+============================================================
+
+﻿import {
+  BookOpen,
+  Landmark,
+  Monitor,
+  Sprout,
+  Trophy,
+  Wifi,
+} from "lucide-react";
+
+// Sesuaikan daftar ini dengan fasilitas yang benar-benar ada.
+// Isi `image` dengan path foto, misalnya "/fasilitas/lab-tkj.jpg"
+const fasilitas = [
+  {
+    icon: Monitor,
+    title: "Laboratorium Komputer",
+    desc: "Ruang praktik jurusan TKJ dengan perangkat komputer untuk pembelajaran berbasis proyek.",
+    image: "",
+  },
+  {
+    icon: Wifi,
+    title: "Jaringan & Internet",
+    desc: "Akses internet untuk menunjang pembelajaran dan praktik jaringan.",
+    image: "",
+  },
+  {
+    icon: Sprout,
+    title: "Lahan Praktik Pertanian",
+    desc: "Area praktik langsung bagi siswa untuk belajar budidaya dan agribisnis.",
+    image: "",
+  },
+  {
+    icon: BookOpen,
+    title: "Perpustakaan",
+    desc: "Ruang baca yang nyaman dengan koleksi buku pelajaran dan referensi.",
+    image: "",
+  },
+  {
+    icon: Landmark,
+    title: "Sarana Ibadah",
+    desc: "Tempat ibadah untuk mendukung pembinaan karakter dan akhlak siswa.",
+    image: "",
+  },
+  {
+    icon: Trophy,
+    title: "Sarana Olahraga",
+    desc: "Lapangan dan fasilitas olahraga untuk kegiatan jasmani dan ekstrakurikuler.",
+    image: "",
+  },
+];
+
+export default function Fasilitas() {
+  return (
+    <section
+      id="fasilitas"
+      className="relative scroll-mt-16 overflow-hidden bg-emerald-50/60 py-20 lg:py-28 dark:bg-emerald-950/10"
+    >
+      <div className="pointer-events-none absolute right-0 top-0 h-80 w-80 translate-x-1/3 -translate-y-1/3 rounded-full bg-emerald-200/50 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-block rounded-full border border-emerald-200 bg-white px-4 py-1.5 text-xs font-semibold text-emerald-700">
+            Fasilitas Sekolah
+          </span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Lingkungan Belajar yang <span className="text-emerald-600">Mendukung</span>
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Sarana dan prasarana yang kami siapkan agar setiap siswa dapat
+            belajar, berpraktik, dan berkembang dengan optimal.
+          </p>
+        </div>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {fasilitas.map((f) => (
+            <article
+              key={f.title}
+              className="group overflow-hidden rounded-3xl border border-emerald-100 bg-white shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-100 dark:bg-card"
+            >
+              <div className="relative h-44 overflow-hidden bg-gradient-to-br from-emerald-200 via-emerald-300 to-green-400">
+                {f.image ? (
+                  <img
+                    src={f.image}
+                    alt={f.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <f.icon className="absolute -bottom-6 -right-6 h-36 w-36 text-white/30 transition duration-500 group-hover:scale-110 group-hover:rotate-6" />
+                )}
+                <div className="absolute left-4 top-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-emerald-600 shadow-md">
+                  <f.icon className="h-6 w-6" />
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-lg font-semibold">{f.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+============================================================
+FILE: components/sections/ppdb.tsx
+============================================================
+
+﻿import {
+  ArrowRight,
+  CalendarCheck,
+  ClipboardCheck,
+  FileText,
+  GraduationCap,
+  Monitor,
+  Sprout,
+  Trophy,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+// Ubah data di bawah ini sesuai informasi resmi sekolah
+const TAHUN_AJARAN = "2027/2028";
+
+const jalur = [
+  {
+    icon: FileText,
+    title: "Pendaftaran Online",
+    date: "[isi tanggal]",
+    desc: "Isi formulir dan unggah berkas persyaratan melalui website resmi.",
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Verifikasi Berkas",
+    date: "[isi tanggal]",
+    desc: "Panitia memeriksa kelengkapan dan keabsahan dokumen pendaftar.",
+  },
+  {
+    icon: Trophy,
+    title: "Seleksi",
+    date: "[isi tanggal]",
+    desc: "Seleksi sesuai jalur yang dipilih dan jurusan tujuan.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "Pengumuman & Daftar Ulang",
+    date: "[isi tanggal]",
+    desc: "Cek hasil seleksi, lalu lakukan daftar ulang bagi peserta yang diterima.",
+  },
+];
+
+const persyaratan = [
+  "Lulusan SMP/MTs atau sederajat",
+  "Fotokopi ijazah / surat keterangan lulus",
+  "Fotokopi kartu keluarga dan akta kelahiran",
+  "Pas foto terbaru",
+  "Sehat jasmani dan rohani",
+];
+
+const jurusan = [
+  {
+    icon: Sprout,
+    kode: "APHP",
+    nama: "Agribisnis Pengolahan Hasil Pertanian",
+    desc: "Belajar mengolah hasil pertanian menjadi produk bernilai jual.",
+  },
+  {
+    icon: Monitor,
+    kode: "TKJ",
+    nama: "Teknik Komputer dan Jaringan",
+    desc: "Belajar merakit komputer, mengelola jaringan, dan teknologi server.",
+  },
+];
+
+export default function Ppdb() {
+  return (
+    <section
+      id="ppdb"
+      className="relative scroll-mt-16 overflow-hidden bg-gradient-to-b from-white via-emerald-50/60 to-white py-20 lg:py-28 dark:from-background dark:via-emerald-950/20 dark:to-background"
+    >
+      <div className="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-10 h-72 w-72 rounded-full bg-lime-200/40 blur-3xl" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto max-w-2xl text-center">
+          <span className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+            <GraduationCap className="h-4 w-4" />
+            PPDB {TAHUN_AJARAN}
+          </span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Penerimaan Peserta Didik Baru
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            Bergabunglah bersama SMKN Pertanian 1 Sukaraja dan siapkan masa
+            depanmu di bidang pertanian dan teknologi.
+          </p>
+        </div>
+
+        <div className="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2">
+          {jurusan.map((j) => (
+            <div
+              key={j.kode}
+              className="group flex gap-4 rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-100 dark:bg-card"
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-500 text-white transition group-hover:rotate-6">
+                <j.icon className="h-6 w-6" />
+              </div>
+              <div>
+                <p className="text-xs font-bold tracking-widest text-emerald-600">
+                  {j.kode}
+                </p>
+                <h3 className="font-semibold leading-snug">{j.nama}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{j.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-14 grid gap-8 lg:grid-cols-5">
+          <div className="lg:col-span-3">
+            <h3 className="mb-6 text-xl font-semibold">Alur Pendaftaran</h3>
+            <ol className="relative space-y-6 border-l-2 border-dashed border-emerald-200 pl-8">
+              {jalur.map((step, i) => (
+                <li key={step.title} className="relative">
+                  <span className="absolute -left-[3.2rem] flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500 text-sm font-bold text-white ring-4 ring-white dark:ring-background">
+                    {i + 1}
+                  </span>
+                  <div className="rounded-2xl border border-emerald-100 bg-white p-5 shadow-sm transition hover:shadow-md dark:bg-card">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h4 className="font-semibold">{step.title}</h4>
+                      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-medium text-emerald-700">
+                        {step.date}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      {step.desc}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div className="lg:col-span-2">
+            <div className="sticky top-24 rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600 p-6 text-white shadow-xl shadow-emerald-200 sm:p-8">
+              <h3 className="text-xl font-semibold">Persyaratan Umum</h3>
+              <ul className="mt-5 space-y-3">
+                {persyaratan.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/25 text-xs">
+                      ✓
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                asChild
+                size="lg"
+                className="mt-8 w-full gap-2 bg-white text-emerald-700 hover:bg-emerald-50"
+              >
+                <a href="#">
+                  Daftar Sekarang <ArrowRight className="h-4 w-4" />
+                </a>
+              </Button>
+              <p className="mt-3 text-center text-xs text-white/80">
+                Ganti tautan tombol dengan alamat pendaftaran resmi.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+============================================================
+FILE: components/sections/sambutan.tsx
+============================================================
+
+﻿import { Quote } from "lucide-react";
+
+const NAMA_KEPSEK = "[Nama Kepala Sekolah]";
+
+export default function Sambutan() {
+  return (
+    <section id="sambutan" className="scroll-mt-16 bg-white py-20 lg:py-28 dark:bg-background">
+      <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-5">
+        <div className="relative mx-auto w-full max-w-sm lg:col-span-2">
+          <div className="absolute -bottom-4 -right-4 h-full w-full rounded-[2.5rem] bg-emerald-200/70" />
+          <div className="absolute -left-4 -top-4 h-24 w-24 rounded-full bg-lime-200" />
+
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2.5rem] border-4 border-white bg-gradient-to-br from-emerald-100 to-emerald-300 shadow-xl">
+            {/* Ganti dengan foto kepala sekolah:
+                <img src="/kepsek.jpg" alt={NAMA_KEPSEK} className="h-full w-full object-cover" /> */}
+            <div className="flex h-full items-center justify-center text-sm font-medium text-emerald-700/70">
+              Foto Kepala Sekolah
+            </div>
+          </div>
+
+          <div className="absolute -bottom-6 left-1/2 w-[85%] -translate-x-1/2 rounded-2xl border border-emerald-100 bg-white px-5 py-3 text-center shadow-lg dark:bg-card">
+            <p className="font-semibold">{NAMA_KEPSEK}</p>
+            <p className="text-xs text-emerald-600">
+              Kepala SMKN Pertanian 1 Sukaraja
+            </p>
+          </div>
+        </div>
+
+        <div className="lg:col-span-3">
+          <span className="inline-block rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5 text-xs font-semibold text-emerald-700">
+            Sambutan Kepala Sekolah
+          </span>
+          <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+            Tumbuh Bersama, <span className="text-emerald-600">Berkarya untuk Negeri</span>
+          </h2>
+
+          <div className="relative mt-8 rounded-3xl bg-emerald-50/70 p-6 sm:p-8">
+            <Quote className="absolute -top-4 left-6 h-9 w-9 rounded-full bg-emerald-500 p-2 text-white" />
+            <div className="space-y-4 text-muted-foreground">
+              <p>
+                Assalamu&apos;alaikum warahmatullahi wabarakatuh. Selamat datang
+                di website resmi SMKN Pertanian 1 Sukaraja. Kami bersyukur dapat
+                menyapa Anda melalui laman ini sebagai wadah informasi dan
+                perkenalan sekolah kami.
+              </p>
+              <p>
+                Melalui Kurikulum Merdeka, kami membekali peserta didik dengan
+                keterampilan di bidang pertanian dan teknologi, serta karakter
+                yang kuat melalui nilai-nilai Pancawaluya. Kami ingin lulusan
+                yang cageur, bageur, bener, pinter, dan singer: siap bekerja,
+                berwirausaha, maupun melanjutkan pendidikan.
+              </p>
+              <p>
+                Terima kasih kepada seluruh guru, tenaga kependidikan, orang
+                tua, dan mitra yang terus mendukung kemajuan sekolah. Mari kita
+                tumbuh bersama untuk mencetak generasi yang unggul dan
+                berakhlak.
+              </p>
+              <p className="font-medium text-foreground">
+                Wassalamu&apos;alaikum warahmatullahi wabarakatuh.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 flex items-center gap-3">
+            <div className="h-px w-12 bg-emerald-400" />
+            <div>
+              <p className="font-semibold">{NAMA_KEPSEK}</p>
+              <p className="text-sm text-muted-foreground">Kepala Sekolah</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+============================================================
+FILE: components/ui/button.tsx
+============================================================
+
+﻿import * as React from "react"
+import { Slot } from "@radix-ui/react-slot"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+)
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
+  asChild?: boolean
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : "button"
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    )
+  },
+)
+Button.displayName = "Button"
+
+export { Button, buttonVariants }
+
+
+============================================================
+FILE: components/ui/demo.tsx
+============================================================
+
+﻿import HeroOne from "@/components/ui/hero-01";
+
+export default function HeroOneDemo() {
+  return <HeroOne />;
+}
+
+
+============================================================
+FILE: components/ui/hero-01-utils/brand-slider.tsx
+============================================================
+
+﻿export type BrandList = {
+  image: string;
+  lightimg: string;
+  name: string;
+};
+
+type BrandSliderProps = {
+  brandList: BrandList[];
+};
+
+export default function BrandSlider({ brandList }: BrandSliderProps) {
+  // Duplikasi list supaya marquee berputar mulus
+  const items = [...brandList, ...brandList];
+
+  return (
+    <section className="border-y bg-muted/30 py-10">
+      <p className="mb-6 text-center text-sm text-muted-foreground">
+        Brands we've worked with
+      </p>
+      <div className="relative mx-auto max-w-5xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <div className="flex w-max animate-marquee items-center gap-16">
+          {items.map((brand, i) => (
+            <div key={i} className="flex h-8 shrink-0 items-center">
+              <img
+                src={brand.image}
+                alt={brand.name}
+                className="hidden h-6 w-auto dark:block"
+              />
+              <img
+                src={brand.lightimg}
+                alt={brand.name}
+                className="block h-6 w-auto dark:hidden"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+============================================================
+FILE: components/ui/hero-01-utils/header.tsx
+============================================================
+
+﻿"use client";
+
+import { Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+
+export type NavigationSection = {
+  title: string;
+  href: string;
+  isActive?: boolean;
+};
+
+type HeaderProps = {
+  navigationData: NavigationSection[];
+};
+
+export default function Header({ navigationData }: HeaderProps) {
+  return (
+    <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
+        <a href="#" className="text-lg font-bold tracking-tight">
+          Agency<span className="text-primary">.</span>
+        </a>
+
+        <NavigationMenu className="hidden md:flex">
+          <NavigationMenuList>
+            {navigationData.map((item) => (
+              <NavigationMenuItem key={item.title}>
+                <NavigationMenuLink
+                  href={item.href}
+                  active={item.isActive}
+                  className={cn(navigationMenuTriggerStyle(), "bg-transparent")}
+                >
+                  {item.title}
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+
+        <div className="flex items-center gap-2">
+          <Button className="hidden sm:inline-flex">Get in touch</Button>
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Open menu</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle>Menu</SheetTitle>
+              </SheetHeader>
+              <nav className="mt-6 flex flex-col gap-1">
+                {navigationData.map((item) => (
+                  <a
+                    key={item.title}
+                    href={item.href}
+                    className={cn(
+                      "rounded-md px-3 py-2 text-sm font-medium hover:bg-accent",
+                      item.isActive && "bg-accent/60"
+                    )}
+                  >
+                    {item.title}
+                  </a>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+
+============================================================
+FILE: components/ui/hero-01-utils/hero.tsx
+============================================================
+
+﻿"use client";
+
+import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export type AvatarList = {
+  image: string;
+  name?: string;
+};
+
+type HeroSectionProps = {
+  avatarList: AvatarList[];
+};
+
+export default function HeroSection({ avatarList }: HeroSectionProps) {
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:py-28">
+      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
+        <span className="mb-4 rounded-full border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+          Award-winning creative agency
+        </span>
+
+        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+          We design brands people{" "}
+          <span className="text-primary">remember</span>
+        </h1>
+
+        <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
+          Strategy, design, and development under one roof, so your idea ships
+          faster and looks better.
+        </p>
+
+        <form
+          className="mt-8 flex w-full max-w-md flex-col gap-3 sm:flex-row sm:items-end"
+          onSubmit={(e) => e.preventDefault()}
+        >
+          <div className="flex-1 space-y-2 text-left">
+            <Label htmlFor="hero-email">Work email</Label>
+            <Input id="hero-email" type="email" placeholder="you@company.com" />
+          </div>
+          <Button type="submit" className="gap-2">
+            Start a project <ArrowRight className="h-4 w-4" />
+          </Button>
+        </form>
+
+        <div className="mt-10 flex items-center gap-4">
+          <div className="flex -space-x-3">
+            {avatarList.map((a, i) => (
+              <img
+                key={i}
+                src={a.image}
+                alt={a.name ?? `Client ${i + 1}`}
+                className="h-10 w-10 rounded-full border-2 border-background object-cover"
+              />
+            ))}
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Trusted by <span className="font-semibold text-foreground">200+</span>{" "}
+            happy clients
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+
+============================================================
+FILE: components/ui/hero-01.tsx
+============================================================
+
+﻿import HeroSection from "@/components/ui/hero-01-utils/hero";
+import type { NavigationSection } from "@/components/ui/hero-01-utils/header";
+import Header from "@/components/ui/hero-01-utils/header";
+import BrandSlider, {
+  BrandList,
+} from "@/components/ui/hero-01-utils/brand-slider";
+import type { AvatarList } from "@/components/ui/hero-01-utils/hero";
+
+export default function AgencyHeroSection() {
+  const avatarList: AvatarList[] = [
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/59a2b5a0dfc1531e2d1ea42d71ae8615f37582e1f8a17e4a1b1aff9afc7ef878.jpg",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/c7097eeb66ad097b6e5f9dbb95ae857cd6b55c0ad398c1ea84f3ab90a02c631e.jpg",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/c70d48e47d3a2d79ad07d16bff3aa3cff686580be031b6102cad73a15b47d8fd.jpg",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/51c9ed392f6e7fce7fd85a78648e3e06bfdcd91999ab5fa48485888231589abf.jpg",
+    },
+  ];
+
+  const navigationData: NavigationSection[] = [
+    { title: "Beranda", href: "#", isActive: true },
+    { title: "Sambutan", href: "#sambutan" },
+    { title: "Fasilitas", href: "#fasilitas" },
+    { title: "PPDB", href: "#ppdb" },
+  ];
+
+  const brandList: BrandList[] = [
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/d824c259df6b2b2962fbef96e68a6877cab689b19246e3dc34ac9e7b144d32bd.svg",
+      lightimg:
+        "https://cdn.21st.dev/assets/localized/15cd724e2a038ed1415820ee25349eac7dfadec7f9359ae3800c13856ecb8b13.svg",
+      name: "Brand 1",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/266083df0c7d0633f145889af4700d18e62b8f2c068fd8ab73d5a94b87a5a5cb.svg",
+      lightimg:
+        "https://cdn.21st.dev/assets/localized/ae83ac635485a392bac5c1723e98d6820d3587f762fdbde63cd462d7edea7c0d.svg",
+      name: "Brand 2",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/91d1c562d12ba69aa7525d3782c6c6223b90e302073d59769dfce665ab9a83b7.svg",
+      lightimg:
+        "https://cdn.21st.dev/assets/localized/23d52f6aa5bbc765b65d5253b6578ed0e9213956a21be149f679cc79e2b0259e.svg",
+      name: "Brand 3",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/f50b06ae2b7bf86d199b0ac986a47442f4a198d2f6dd81a9fe83c43022608498.svg",
+      lightimg:
+        "https://cdn.21st.dev/assets/localized/4cd93b1d1133feffdf8eba4431f93c14b538120c74285f39fe7ad1c6e48f7b53.svg",
+      name: "Brand 4",
+    },
+    {
+      image:
+        "https://cdn.21st.dev/assets/localized/3ad67ddda671655df765a507c9bcc7b67e4138a1ffe903ace17cef99c5c972a3.svg",
+      lightimg:
+        "https://cdn.21st.dev/assets/localized/6ee9f831a7c1cb87c14308a9d687fbd5fb2f319abee03d306b78730421410354.svg",
+      name: "Brand 5",
+    },
+  ];
+
+  return (
+    <div className="relative">
+      <Header navigationData={navigationData} />
+      <main>
+        <HeroSection avatarList={avatarList} />
+        <BrandSlider brandList={brandList} />
+      </main>
+    </div>
+  );
+}
+
+
+
+============================================================
+FILE: components/ui/input.tsx
+============================================================
+
+﻿import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          "flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
+    )
+  }
+)
+Input.displayName = "Input"
+
+export { Input }
+
+
+============================================================
+FILE: components/ui/label.tsx
+============================================================
+
+﻿"use client"
+
+import * as React from "react"
+import * as LabelPrimitive from "@radix-ui/react-label"
+import { cva, type VariantProps } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+)
+
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+    VariantProps<typeof labelVariants>
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(labelVariants(), className)}
+    {...props}
+  />
+))
+Label.displayName = LabelPrimitive.Root.displayName
+
+export { Label }
+
+
+============================================================
+FILE: components/ui/navigation-menu.tsx
+============================================================
+
+﻿import * as React from "react"
+import { ChevronDownIcon } from "@radix-ui/react-icons"
+import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
+import { cva } from "class-variance-authority"
+
+import { cn } from "@/lib/utils"
+
+const NavigationMenu = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
+>(({ className, children, ...props }, ref) => (
+  <NavigationMenuPrimitive.Root
+    ref={ref}
+    className={cn(
+      "relative z-10 flex max-w-max flex-1 items-center justify-center",
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <NavigationMenuViewport />
+  </NavigationMenuPrimitive.Root>
+))
+NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
+
+const NavigationMenuList = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.List>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.List>
+>(({ className, ...props }, ref) => (
+  <NavigationMenuPrimitive.List
+    ref={ref}
+    className={cn(
+      "group flex flex-1 list-none items-center justify-center space-x-1",
+      className
+    )}
+    {...props}
+  />
+))
+NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName
+
+const NavigationMenuItem = NavigationMenuPrimitive.Item
+
+const navigationMenuTriggerStyle = cva(
+  "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+)
+
+const NavigationMenuTrigger = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <NavigationMenuPrimitive.Trigger
+    ref={ref}
+    className={cn(navigationMenuTriggerStyle(), "group", className)}
+    {...props}
+  >
+    {children}{" "}
+    <ChevronDownIcon
+      className="relative top-[1px] ml-1 h-3 w-3 transition duration-300 group-data-[state=open]:rotate-180"
+      aria-hidden="true"
+    />
+  </NavigationMenuPrimitive.Trigger>
+))
+NavigationMenuTrigger.displayName = NavigationMenuPrimitive.Trigger.displayName
+
+const NavigationMenuContent = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Content>
+>(({ className, ...props }, ref) => (
+  <NavigationMenuPrimitive.Content
+    ref={ref}
+    className={cn(
+      "left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-auto ",
+      className
+    )}
+    {...props}
+  />
+))
+NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
+
+const NavigationMenuLink = NavigationMenuPrimitive.Link
+
+const NavigationMenuViewport = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
+>(({ className, ...props }, ref) => (
+  <div className={cn("absolute left-0 top-full flex justify-center")}>
+    <NavigationMenuPrimitive.Viewport
+      className={cn(
+        "origin-top-center relative mt-1.5 h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden rounded-md border bg-popover text-popover-foreground shadow data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 md:w-[var(--radix-navigation-menu-viewport-width)]",
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
+  </div>
+))
+NavigationMenuViewport.displayName =
+  NavigationMenuPrimitive.Viewport.displayName
+
+const NavigationMenuIndicator = React.forwardRef<
+  React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
+  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Indicator>
+>(({ className, ...props }, ref) => (
+  <NavigationMenuPrimitive.Indicator
+    ref={ref}
+    className={cn(
+      "top-full z-[1] flex h-1.5 items-end justify-center overflow-hidden data-[state=visible]:animate-in data-[state=hidden]:animate-out data-[state=hidden]:fade-out data-[state=visible]:fade-in",
+      className
+    )}
+    {...props}
+  >
+    <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
+  </NavigationMenuPrimitive.Indicator>
+))
+NavigationMenuIndicator.displayName =
+  NavigationMenuPrimitive.Indicator.displayName
+
+export {
+  navigationMenuTriggerStyle,
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuContent,
+  NavigationMenuTrigger,
+  NavigationMenuLink,
+  NavigationMenuIndicator,
+  NavigationMenuViewport,
+}
+
+
+============================================================
+FILE: components/ui/sheet.tsx
+============================================================
+
+﻿"use client"
+
+import * as React from "react"
+import * as SheetPrimitive from "@radix-ui/react-dialog"
+import { cva, type VariantProps } from "class-variance-authority"
+import { X } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+
+const Sheet = SheetPrimitive.Root
+
+const SheetTrigger = SheetPrimitive.Trigger
+
+const SheetClose = SheetPrimitive.Close
+
+const SheetPortal = SheetPrimitive.Portal
+
+const SheetOverlay = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Overlay>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
+>(({ className, ...props }, ref) => (
+  <SheetPrimitive.Overlay
+    className={cn(
+      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      className,
+    )}
+    {...props}
+    ref={ref}
+  />
+))
+SheetOverlay.displayName = SheetPrimitive.Overlay.displayName
+
+const sheetVariants = cva(
+  "fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-300 data-[state=open]:duration-500",
+  {
+    variants: {
+      side: {
+        top: "inset-x-0 top-0 border-b data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top",
+        bottom:
+          "inset-x-0 bottom-0 border-t data-[state=closed]:slide-out-to-bottom data-[state=open]:slide-in-from-bottom",
+        left: "inset-y-0 left-0 h-full w-3/4 border-r data-[state=closed]:slide-out-to-left data-[state=open]:slide-in-from-left sm:max-w-sm",
+        right:
+          "inset-y-0 right-0 h-full w-3/4  border-l data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right sm:max-w-sm",
+      },
+    },
+    defaultVariants: {
+      side: "right",
+    },
+  },
+)
+
+interface SheetContentProps
+  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
+    VariantProps<typeof sheetVariants> {}
+
+const SheetContent = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Content>,
+  SheetContentProps
+>(({ side = "right", className, children, ...props }, ref) => (
+  <SheetPortal>
+    <SheetOverlay />
+    <SheetPrimitive.Content
+      ref={ref}
+      className={cn(sheetVariants({ side }), className)}
+      {...props}
+    >
+      {children}
+      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <X className="h-4 w-4" />
+        <span className="sr-only">Close</span>
+      </SheetPrimitive.Close>
+    </SheetPrimitive.Content>
+  </SheetPortal>
+))
+SheetContent.displayName = SheetPrimitive.Content.displayName
+
+const SheetHeader = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col space-y-2 text-center sm:text-left",
+      className,
+    )}
+    {...props}
+  />
+)
+SheetHeader.displayName = "SheetHeader"
+
+const SheetFooter = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
+  <div
+    className={cn(
+      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+      className,
+    )}
+    {...props}
+  />
+)
+SheetFooter.displayName = "SheetFooter"
+
+const SheetTitle = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Title>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>
+>(({ className, ...props }, ref) => (
+  <SheetPrimitive.Title
+    ref={ref}
+    className={cn("text-lg font-semibold text-foreground", className)}
+    {...props}
+  />
+))
+SheetTitle.displayName = SheetPrimitive.Title.displayName
+
+const SheetDescription = React.forwardRef<
+  React.ElementRef<typeof SheetPrimitive.Description>,
+  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>
+>(({ className, ...props }, ref) => (
+  <SheetPrimitive.Description
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+SheetDescription.displayName = SheetPrimitive.Description.displayName
+
+export {
+  Sheet,
+  SheetPortal,
+  SheetOverlay,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+  SheetHeader,
+  SheetFooter,
+  SheetTitle,
+  SheetDescription,
+}
+
+
+============================================================
+FILE: components.json
+============================================================
+
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "base-nova",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "iconLibrary": "lucide",
+  "rtl": false,
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "menuColor": "default",
+  "menuAccent": "subtle",
+  "registries": {}
+}
+
+
+============================================================
+FILE: lib/utils.ts
+============================================================
+
+﻿import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
+
+============================================================
+FILE: next-env.d.ts
+============================================================
+
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+import "./.next/dev/types/root-params.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+
+
+============================================================
+FILE: next.config.ts
+============================================================
+
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+  cacheComponents: true,
+  partialPrefetching: true,
+  turbopack: {
+    rules: {
+      "*.css": {
+        loaders: ["@tailwindcss/turbopack"],
+        as: "*.css",
+      },
+    },
+  },
+};
+
+export default nextConfig;
+
+
+============================================================
+FILE: package.json
+============================================================
+
+{
+  "name": "my-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "@radix-ui/react-dialog": "^1.3.1",
+    "@radix-ui/react-icons": "^1.3.2",
+    "@radix-ui/react-label": "^2.1.17",
+    "@radix-ui/react-navigation-menu": "^1.4.1",
+    "@radix-ui/react-slot": "^1.5.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "cn": "^0.4.0",
+    "lucide-react": "^1.55.0",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "shadcn": "^4.21.4",
+    "tailwind-merge": "^3.7.0",
+    "tw-animate-css": "^1.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+============================================================
+FILE: README.md
+============================================================
+
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+
+## Getting Started
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+============================================================
+FILE: tsconfig.json
+============================================================
+
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
+}
+
